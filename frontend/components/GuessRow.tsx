@@ -23,8 +23,8 @@ export function LetterBox({ letter, status, index }: LetterBoxProps) {
   return (
     <div
       className={`
-        w-14 h-14 border-2 flex items-center justify-center
-        text-2xl font-bold uppercase rounded-md
+        w-12 h-12 border-2 flex items-center justify-center
+        text-xl font-bold uppercase rounded-md
         transition-all duration-300 ease-in-out
         ${getStatusColor()}
         ${letter && status === "empty" ? "border-gray-500 dark:border-gray-400 scale-105" : ""}
@@ -53,7 +53,7 @@ export function GuessRow({
   const statuses: LetterStatus[] = result || Array(5).fill("empty");
 
   return (
-    <div className="flex gap-2 justify-center">
+    <div className="flex gap-1.5 justify-center">
       {letters.map((letter, index) => (
         <LetterBox
           key={index}
