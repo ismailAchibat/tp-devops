@@ -10,6 +10,7 @@ export function useWordleGame() {
     guesses: [],
     currentGuess: "",
     maxGuesses: 6,
+    wordLength: 5,
     gameOver: false,
     won: false,
   });
@@ -31,6 +32,7 @@ export function useWordleGame() {
         guesses: [],
         currentGuess: "",
         maxGuesses: response.maxGuesses,
+        wordLength: response.wordLength,
         gameOver: false,
         won: false,
       });
@@ -68,7 +70,10 @@ export function useWordleGame() {
 
   // Submit a guess
   const submitGuess = useCallback(async () => {
-    if (!gameState.gameId || gameState.currentGuess.length !== 5) {
+    if (
+      !gameState.gameId ||
+      gameState.currentGuess.length !== gameState.wordLength
+    ) {
       return;
     }
 
@@ -98,19 +103,27 @@ export function useWordleGame() {
     } finally {
       setLoading(false);
     }
-  }, [gameState.gameId, gameState.currentGuess, updateLetterStatuses]);
+  }, [
+    gameState.gameId,
+    gameState.currentGuess,
+    gameState.wordLength,
+    updateLetterStatuses,
+  ]);
 
   // Add letter to current guess
   const addLetter = useCallback(
     (letter: string) => {
-      if (gameState.currentGuess.length < 5 && !gameState.gameOver) {
+      if (
+        gameState.currentGuess.length < gameState.wordLength &&
+        !gameState.gameOver
+      ) {
         setGameState((prev) => ({
           ...prev,
           currentGuess: prev.currentGuess + letter,
         }));
       }
     },
-    [gameState.currentGuess.length, gameState.gameOver],
+    [gameState.currentGuess.length, gameState.gameOver, gameState.wordLength],
   );
 
   // Remove last letter

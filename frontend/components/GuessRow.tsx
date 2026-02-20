@@ -41,16 +41,18 @@ export function LetterBox({ letter, status, index }: LetterBoxProps) {
 interface GuessRowProps {
   guess: string;
   result?: LetterStatus[];
+  wordLength: number;
   isCurrentGuess?: boolean;
 }
 
 export function GuessRow({
   guess,
   result,
+  wordLength,
   isCurrentGuess = false,
 }: GuessRowProps) {
-  const letters = guess.padEnd(5, " ").split("");
-  const statuses: LetterStatus[] = result || Array(5).fill("empty");
+  const letters = guess.padEnd(wordLength, " ").split("");
+  const statuses: LetterStatus[] = result || Array(wordLength).fill("empty");
 
   return (
     <div className="flex gap-1.5 justify-center">

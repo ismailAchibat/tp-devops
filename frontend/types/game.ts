@@ -10,6 +10,7 @@ export interface GameState {
   guesses: GuessResult[];
   currentGuess: string;
   maxGuesses: number;
+  wordLength: number;
   gameOver: boolean;
   won: boolean;
   targetWord?: string;
@@ -17,6 +18,7 @@ export interface GameState {
 
 export interface NewGameResponse {
   gameId: string;
+  wordLength: number;
   maxGuesses: number;
   message: string;
 }
@@ -34,6 +36,7 @@ export interface GameStatusResponse {
   gameId: string;
   guesses: GuessResult[];
   maxGuesses: number;
+  wordLength: number;
   gameOver: boolean;
   won: boolean;
   targetWord?: string;
