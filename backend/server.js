@@ -24,7 +24,25 @@ app.use((req, res, next) => {
 const wordsData = JSON.parse(
   fs.readFileSync(path.join(__dirname, "words.json"), "utf-8"),
 );
-const words = wordsData.words;
+const wordsByLength = wordsData.words;
+const availableLengths = Object.keys(wordsByLength).map(Number).sort();
+
+// Get a random word
+function getRandomWord() {
+  const randomLength =
+    availableLengths[Math.floor(Math.random() * availableLengths.length)];
+  const wordsOfLength = wordsByLength[randomLength];
+  return {
+    word: wordsOfLength[Math.floor(Math.random() * wordsOfLength.length)],
+    length: randomLength,
+  };
+}
+
+// Check if word exists in word lists
+function isValidWord(word, length) {
+  const wordsOfLength = wordsByLength[length];
+  return wordsOfLength && wordsOfLength.includes(word.toUpperCase());
+}
 
 // Store game sessions (in-memory, resets on server restart)
 const gameSessions = new Map();
@@ -34,25 +52,25 @@ function generateGameId() {
   return Math.random().toString(36).substring(2, 15);
 }
 
-// Get a random word
-function getRandomWord() {
-  return words[Math.floor(Math.random() * words.length)];
-}
-
 // Routes
 
 // Get all words (for testing/admin)
 app.get("/api/words", (req, res) => {
-  res.json({ count: words.length, words });
+  const totalWords = Object.values(wordsByLength).reduce(
+    (sum, arr) => sum + arr.length,
+    0,
+  );
+  res.json({ count: totalWords, words: wordsByLength, availableLengths });
 });
 
 // Start a new game
 app.post("/api/game/new", (req, res) => {
   const gameId = generateGameId();
-  const targetWord = getRandomWord();
+  const { word, length } = getRandomWord();
 
   gameSessions.set(gameId, {
-    targetWord,
+    targetWord: word,
+    wordLength: length,
     guesses: [],
     maxGuesses: 6,
     gameOver: false,
@@ -62,6 +80,7 @@ app.post("/api/game/new", (req, res) => {
 
   res.json({
     gameId,
+    wordLength: length,
     maxGuesses: 6,
     message: "New game started!",
   });
@@ -101,14 +120,16 @@ app.post("/api/game/:gameId/guess", (req, res) => {
     return res.status(400).json({ error: "Game already over" });
   }
 
-  if (!word || word.length !== 5) {
-    return res.status(400).json({ error: "Word must be 5 letters" });
+  if (!word || word.length !== game.wordLength) {
+    return res
+      .status(400)
+      .json({ error: `Word must be ${game.wordLength} letters` });
   }
 
   const guess = word.toUpperCase();
 
   // Check if word is in the word list
-  if (!words.includes(guess)) {
+  if (!isValidWord(guess, game.wordLength)) {
     return res.status(400).json({ error: "Word not in list" });
   }
 
@@ -175,7 +196,6 @@ function checkGuess(guess, target) {
   return result;
 }
 
-
 app.get("/api/word-of-the-day", (req, res) => {
   const today = new Date().toISOString().split("T")[0];
   const seed = today.split("-").reduce((acc, val) => acc + parseInt(val), 0);
@@ -186,7 +206,6 @@ app.get("/api/word-of-the-day", (req, res) => {
     message: "Word of the day is set!",
   });
 });
-
 
 // Start server
 app.listen(PORT, () => {

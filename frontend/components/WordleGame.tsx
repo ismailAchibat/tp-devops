@@ -44,7 +44,7 @@ export function WordleGame() {
             DevOps Wordle
           </h1>
           <p className="text-center text-gray-600 dark:text-gray-400 text-sm">
-            Devinez le terme en 6 tentatives
+            Devinez un terme de {gameState.wordLength} lettres en 6 tentatives
           </p>
         </div>
 
@@ -52,17 +52,30 @@ export function WordleGame() {
         <div className="mb-4 space-y-1 flex-shrink-0">
           {/* Previous guesses */}
           {gameState.guesses.map((guess, index) => (
-            <GuessRow key={index} guess={guess.word} result={guess.result} />
+            <GuessRow
+              key={index}
+              guess={guess.word}
+              result={guess.result}
+              wordLength={gameState.wordLength}
+            />
           ))}
 
           {/* Current guess */}
           {!gameState.gameOver && (
-            <GuessRow guess={gameState.currentGuess} isCurrentGuess />
+            <GuessRow
+              guess={gameState.currentGuess}
+              isCurrentGuess
+              wordLength={gameState.wordLength}
+            />
           )}
 
           {/* Empty rows */}
           {Array.from({ length: emptyRows }).map((_, index) => (
-            <GuessRow key={`empty-${index}`} guess="" />
+            <GuessRow
+              key={`empty-${index}`}
+              guess=""
+              wordLength={gameState.wordLength}
+            />
           ))}
         </div>
 
