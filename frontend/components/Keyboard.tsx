@@ -52,9 +52,9 @@ export function Keyboard({
   };
 
   return (
-    <div className="w-full max-w-lg mx-auto">
+    <div className="w-full max-w-2xl mx-auto">
       {KEYBOARD_ROWS.map((row, rowIndex) => (
-        <div key={rowIndex} className="flex gap-1 justify-center mb-2">
+        <div key={rowIndex} className="flex gap-1 justify-center mb-1">
           {row.map((key) => {
             const isSpecial = key === "ENTER" || key === "BACK";
             return (
@@ -63,13 +63,13 @@ export function Keyboard({
                 onClick={() => handleClick(key)}
                 disabled={disabled}
                 className={`
-                  ${isSpecial ? "px-4" : "px-3"} py-4
+                  ${isSpecial ? "px-3" : "px-2"} py-3 text-sm
                   ${getKeyColor(key)}
-                  rounded font-bold text-sm
+                  rounded font-bold
                   transition-all duration-200
                   disabled:opacity-50 disabled:cursor-not-allowed
                   active:scale-95
-                  min-w-10
+                  min-w-9
                 `}
               >
                 {key === "BACK" ? "⌫" : key}
