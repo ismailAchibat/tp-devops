@@ -1,36 +1,137 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DevOps Wordle - Frontend
 
-## Getting Started
+A modern, responsive Wordle-style game built with Next.js 15, React 19, and Tailwind CSS 4, featuring DevOps terminology.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- 🎮 Classic Wordle gameplay
+- 🎨 Modern, gradient UI design
+- 🌓 Dark mode support
+- ⌨️ Physical and on-screen keyboard support
+- 📱 Fully responsive design
+- 🏗️ Clean architecture with separated concerns
+- 🎯 Type-safe with TypeScript
+
+## Architecture
+
+### Directory Structure
+
+```
+frontend/
+├── app/
+│   ├── globals.css          # Global styles
+│   ├── layout.tsx           # Root layout with metadata
+│   └── page.tsx             # Main game page
+├── components/
+│   ├── WordleGame.tsx       # Main game container
+│   ├── GuessRow.tsx         # Individual guess row component
+│   ├── Keyboard.tsx         # On-screen keyboard
+│   └── GameModal.tsx        # Game over modal
+├── hooks/
+│   └── useWordleGame.ts     # Game logic & state management
+├── lib/
+│   └── api.ts               # API service layer
+└── types/
+    └── game.ts              # TypeScript type definitions
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Clean Architecture
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Separation of Concerns**
+   - `lib/api.ts`: All backend API calls isolated
+   - `hooks/useWordleGame.ts`: Game state management & business logic
+   - `components/`: Pure UI components
+   - `types/`: Shared type definitions
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. **Type Safety**
+   - Complete TypeScript type definitions
+   - Strong typing across all layers
 
-## Learn More
+3. **Component Design**
+   - Reusable, composable components
+   - Props-driven interfaces
+   - Single responsibility principle
 
-To learn more about Next.js, take a look at the following resources:
+## Setup & Installation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# Install dependencies
+npm install
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Start development server
+npm run dev
 
-## Deploy on Vercel
+# Build for production
+npm run build
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Server runs on `http://localhost:3000`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Environment Variables
+
+Create a `.env.local` file:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3001
+```
+
+## How to Play
+
+1. **Objective**: Guess a 5-letter DevOps term in 6 tries
+2. **Guess**: Type or click letters to form a word
+3. **Submit**: Press Enter or click ENTER
+4. **Feedback Colors**:
+   - 🟩 **Green**: Correct letter in correct position
+   - 🟨 **Yellow**: Correct letter in wrong position
+   - ⬛ **Gray**: Letter not in the word
+
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **UI Library**: React 19
+- **Styling**: Tailwind CSS 4
+- **Language**: TypeScript 5
+- **State Management**: React Hooks
+- **API Client**: Fetch API
+
+## Key Components
+
+### WordleGame
+
+Main game container that orchestrates all components and manages game state through the `useWordleGame` hook.
+
+### useWordleGame Hook
+
+Custom hook that handles:
+
+- Game state management
+- API communications
+- Keyboard input handling
+- Letter status tracking
+
+### GuessRow
+
+Displays a single guess with color-coded letter boxes. Supports both completed guesses and the current input.
+
+### Keyboard
+
+On-screen keyboard with color-coded keys based on letter status. Fully accessible and responsive.
+
+### GameModal
+
+Modal dialog shown at game end, displaying results and offering replay option.
+
+## API Integration
+
+The frontend communicates with the backend through the `GameApiService` class:
+
+```typescript
+// Start new game
+const game = await GameApiService.startNewGame();
+
+// Submit guess
+const result = await GameApiService.submitGuess(gameId, word);
+
+// Get game status
+const status = await GameApiService.getGameStatus(gameId);
+```
