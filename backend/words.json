@@ -12,7 +12,9 @@
       "RUBY",
       "HELM",
       "YARN",
-      "NATS"
+      "NATS",
+      "PUSH",
+      "PULL"
     ],
     "5": [
       "AGILE",
@@ -121,7 +123,8 @@
       "SECURITY",
       "ROLLBACK",
       "TEMPLATE",
-      "METADATA"
+      "METADATA",
+      "WORKFLOW"
     ]
   }
 }
