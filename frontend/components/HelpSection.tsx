@@ -1,9 +1,11 @@
-export function HelpSection() {
+interface HelpSectionProps {
+  wordLength: number;
+}
+
+export function HelpSection({ wordLength }: HelpSectionProps) {
   return (
     <div className="w-56 flex-shrink-0">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-3 h-full overflow-y-auto">
-
-
         <div className="space-y-2">
           {/* Green */}
           <div>
@@ -60,7 +62,7 @@ export function HelpSection() {
             </h3>
             <p className="text-xs text-gray-600 dark:text-gray-400">
               Trouvez le terme DevOps en 6 tentatives. Chaque supposition doit
-              être un mot valide de 5 lettres.
+              être un mot valide de {wordLength} lettres.
             </p>
           </div>
         </div>

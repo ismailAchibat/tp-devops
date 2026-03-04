@@ -99,6 +99,7 @@ app.get("/api/game/:gameId", (req, res) => {
     gameId,
     guesses: game.guesses,
     maxGuesses: game.maxGuesses,
+    wordLength: game.wordLength,
     gameOver: game.gameOver,
     won: game.won,
     targetWord: game.gameOver ? game.targetWord : undefined,
@@ -161,13 +162,14 @@ app.post("/api/game/:gameId/guess", (req, res) => {
 
 // Check guess against target word
 function checkGuess(guess, target) {
+  const wordLength = target.length;
   const result = [];
   const targetLetters = target.split("");
   const guessLetters = guess.split("");
-  const used = new Array(5).fill(false);
+  const used = new Array(wordLength).fill(false);
 
   // First pass: mark correct positions
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < wordLength; i++) {
     if (guessLetters[i] === targetLetters[i]) {
       result[i] = "correct";
       used[i] = true;
@@ -175,11 +177,11 @@ function checkGuess(guess, target) {
   }
 
   // Second pass: mark present but wrong position
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < wordLength; i++) {
     if (result[i] === "correct") continue;
 
     let found = false;
-    for (let j = 0; j < 5; j++) {
+    for (let j = 0; j < wordLength; j++) {
       if (!used[j] && guessLetters[i] === targetLetters[j]) {
         result[i] = "present";
         used[j] = true;
