@@ -4,7 +4,8 @@ import type {
   GameStatusResponse,
 } from "@/types/game";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+// Use relative URLs - they'll be proxied through Next.js API routes to the backend
+const API_BASE_URL = "/api";
 
 export class GameApiService {
   /**

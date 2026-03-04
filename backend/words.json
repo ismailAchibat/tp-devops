@@ -91,7 +91,6 @@
       "ANSIBLE",
       "JENKINS",
       "GRAFANA",
-      "PROMETHEUS",
       "MOLECULE",
       "SERVICE",
       "GATEWAY",

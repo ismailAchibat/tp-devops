@@ -33,7 +33,7 @@ export function WordleGame() {
     <div className="relative h-screen bg-linear-to-br from-blue-50 via-white to-green-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 overflow-hidden flex items-center justify-center">
       {/* Help Section - Left Sidebar (hidden on small screens) */}
       <div className="hidden lg:block absolute left-4 top-1/2 -translate-y-1/2">
-        <HelpSection />
+        <HelpSection wordLength={gameState.wordLength} />
       </div>
 
       {/* Main Game Section - Centered */}
