@@ -25,7 +25,6 @@
       "CLOUD",
       "DEBUG",
       "FLASK",
-      "GITHUB",
       "GRAPH",
       "IMAGE",
       "KAFKA",
@@ -63,11 +62,11 @@
     ],
     "6": [
       "DOCKER",
-      "KUBERNETES",
       "GITHUB",
       "GITLAB",
       "CONSUL",
       "FABRIC",
+      "GITHUB",
       "SYSTEM",
       "KERNEL",
       "SOURCE",
@@ -93,7 +92,6 @@
       "ANSIBLE",
       "JENKINS",
       "GRAFANA",
-      "MOLECULE",
       "SERVICE",
       "GATEWAY",
       "MONITOR",
@@ -108,7 +106,6 @@
       "TRIGGER"
     ],
     "8": [
-      "TERRAFORM",
       "ENDPOINT",
       "DATABASE",
       "PROTOCOL",
