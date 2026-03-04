@@ -1,111 +1,40 @@
-# flyctl launch added from .gitignore
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+.git
+.github
 
-# Dependencies (all node_modules in any folder)
-**\**\node_modules
-**\**\.pnp
-**\.pnp.*
-**\**\.yarn\*
-!**\**\.yarn\patches
-!**\**\.yarn\plugins
-!**\**\.yarn\releases
-!**\**\.yarn\versions
+# Dependencies
+**/node_modules
+**/.pnp
+**/.pnp.*
 
-# Testing
-**\**\coverage
-**\**\.nyc_output
+# Build output
+**/.next
+**/out
+**/build
+**/dist
+**/coverage
+**/.nyc_output
 
-# Frontend (Next.js)
-**\frontend\.next
-**\frontend\out
-**\frontend\build
+# Logs
+**/*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
 
-# Backend (Node.js/Express)
-**\backend\dist
-**\backend\build
-**\backend\logs
-**\backend\*.log
+# Env files
+**/.env
+**/.env.*
+!**/.env.example
 
-# Production builds
-**\**\dist
-**\**\build
+# IDE / OS
+**/.vscode
+**/.idea
+**/*.swp
+**/*.swo
+**/*~
+**/.DS_Store
+**/Thumbs.db
 
 # Misc
-**\.DS_Store
-**\*.pem
-**\Thumbs.db
-
-# Debug logs
-**\npm-debug.log*
-**\yarn-debug.log*
-**\yarn-error.log*
-**\.pnpm-debug.log*
-**\**\logs
-**\*.log
-
-# Environment variables (can opt-in for committing if needed)
-**\.env
-**\.env.*
-!**\.env.example
-
-# Vercel
-**\.vercel
-
-# TypeScript
-**\*.tsbuildinfo
-**\next-env.d.ts
-
-# IDE
-**\.vscode
-**\.idea
-**\*.swp
-**\*.swo
-**\*~
-
-# OS
-**\.DS_Store
-**\Thumbs.db
-
-# flyctl launch added from frontend\.next\.gitignore
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-frontend\.next\node_modules
-frontend\.next\.pnp
-frontend\.next\**\.pnp.*
-frontend\.next\**\.yarn\*
-!frontend\.next\**\.yarn\patches
-!frontend\.next\**\.yarn\plugins
-!frontend\.next\**\.yarn\releases
-!frontend\.next\**\.yarn\versions
-
-# testing
-frontend\.next\coverage
-
-# next.js
-frontend\.next\.next
-frontend\.next\out
-
-# production
-frontend\.next\build
-
-# misc
-frontend\.next\**\.DS_Store
-frontend\.next\**\*.pem
-
-# debug
-frontend\.next\**\npm-debug.log*
-frontend\.next\**\yarn-debug.log*
-frontend\.next\**\yarn-error.log*
-frontend\.next\**\.pnpm-debug.log*
-
-# env files (can opt-in for committing if needed)
-frontend\.next\**\.env*
-
-# vercel
-frontend\.next\**\.vercel
-
-# typescript
-frontend\.next\**\*.tsbuildinfo
-frontend\.next\**\next-env.d.ts
-fly.toml
+**/*.pem
+**/*.tsbuildinfo
